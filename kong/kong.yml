@@ -1,0 +1,13 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - host: localhost
+    name: user-management
+    port: 8101
+    protocol: http
+    routes:
+      - name: user-management
+        paths:
+          - /user-management
+        strip_path: true

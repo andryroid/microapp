@@ -1,0 +1,11 @@
+controllers:
+  resource: ../src/Infrastructure/Controller/
+  type: annotation
+
+kernel:
+  resource: ../src/Infrastructure/Kernel.php
+  type: annotation
+
+api_login_check:
+  path: /api/login_check
+  methods: [POST]
