@@ -1,4 +1,3 @@
--- Active: 1666269039866@@127.0.0.1@3306
 <?php
 
 namespace Infrastructure\Service\Event;
