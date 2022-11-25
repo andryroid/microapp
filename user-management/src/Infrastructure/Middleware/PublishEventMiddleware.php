@@ -27,7 +27,7 @@ class PublishEventMiddleware implements MiddlewareInterface
         //execute all middleware first
         //FYI: HandleMessageMiddleware is the last executed middleware who find the handler
         $result = $stack->next()->handle($envelope, $stack);
-
+        
         if (!$this->eventManager->hasEvent()) {
             return $result;
         }

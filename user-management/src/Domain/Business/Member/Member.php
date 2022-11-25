@@ -4,6 +4,7 @@ namespace Domain\Business\Member;
 
 use Domain\Business\Member\Attributes\Contact\Contact;
 use Domain\Business\Member\Attributes\Gender;
+use Domain\Business\Member\Events\MemberWasCreated;
 use Domain\Business\Member\Exception\EmptyContactException;
 use Domain\Business\Member\Exception\IncorrectUsernameException;
 use Domain\Utils\AggregateRoot\AggregateRoot;
@@ -19,7 +20,7 @@ class Member extends AggregateRoot {
         private Gender $gender
     )
     {
-        
+        $this->addEvent(new MemberWasCreated($this->identifier));
     }
 
     public static function create(
