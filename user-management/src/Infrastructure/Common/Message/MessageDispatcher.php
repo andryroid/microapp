@@ -30,7 +30,6 @@ final class MessageDispatcher implements MessageDispatcherInterface,ServiceSubsc
         $handledStamps = $envelop->all(HandledStamp::class);
         /** @var HandledStamp $stamp */
         $stamp = $envelop->last(HandledStamp::class);
-        dd($stamp);
         return $stamp?->getResult();
     }
 

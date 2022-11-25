@@ -7,13 +7,14 @@ framework:
       # https://symfony.com/doc/current/messenger.html#transport-configuration
       # async: '%env(MESSENGER_TRANSPORT_DSN)%'
       failed: "doctrine://default?queue_name=failed"
-      sync: "in-memory://"
+      sync: "%env(MESSENGER_TRANSPORT_DSN)%"
+      #sync: "in-memory://"
 
     routing:
       # Route your messages to the transports
       'Domain\Utils\Attributes\MessageInterface': sync
 
-    default_bus: event.bus
+    default_bus: command.bus
 
     buses:
       command.bus:
