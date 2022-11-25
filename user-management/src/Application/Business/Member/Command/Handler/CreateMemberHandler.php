@@ -9,7 +9,6 @@ use Domain\Utils\Event\EventManagerInterface;
 use Domain\Utils\Identifier\IdentifierInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(bus:'command.bus',fromTransport: 'sync')]
 final class CreateMemberHandler {
 
     public function __construct(

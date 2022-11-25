@@ -11,7 +11,7 @@ final class ResponseManager implements ResponseManagerInterface {
 	 *
 	 * @return \Symfony\Component\HttpFoundation\JsonResponse
 	 */
-	function success(\JsonSerializable|array $data,int $status = 200): \Symfony\Component\HttpFoundation\JsonResponse {
+	function success(\JsonSerializable|array|string $data,int $status = 200): \Symfony\Component\HttpFoundation\JsonResponse {
         return new JsonResponse($data, $status);
 	}
 	
@@ -21,7 +21,7 @@ final class ResponseManager implements ResponseManagerInterface {
 	 *
 	 * @return \Symfony\Component\HttpFoundation\JsonResponse
 	 */
-	function error(\JsonSerializable|array $data,int $status = 500): \Symfony\Component\HttpFoundation\JsonResponse {
+	function error(\JsonSerializable|array|string $data,int $status = 500): \Symfony\Component\HttpFoundation\JsonResponse {
         return new JsonResponse($data, $status);
     }
 }

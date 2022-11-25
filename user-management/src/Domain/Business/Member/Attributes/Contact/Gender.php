@@ -26,4 +26,8 @@ class Gender {
     public function getGender() : string {
         return $this->genderType === GenderType::WOMEN ? "Women" : "Men";
     }
+
+    public function getGenderValue() : int {
+        return $this->genderType === GenderType::MAN ? 1 : 0;
+    }
 }

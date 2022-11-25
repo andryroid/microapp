@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Domain\Business\Member\Repository\CreateMemberRepositoryInterface;
 use Infrastructure\Entity\Member\Member;
+use Infrastructure\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -33,9 +34,10 @@ class CreateMemberRepository extends ServiceEntityRepository implements CreateMe
 			->setIdentifier($information['identifier'])
 			->setFirstName($information['firstName'])
 			->setLastName($information['lastName'])
-			->setGender($information['gender'])
-			->setContact($information['contact']);
+			->setGender($information['gender']['value'])
+			->setMemberSinceAt($information['memberSinceAt'])
+			->setContact($information['contact']->toArray());
 		$this->_em->persist($newMember);
-		return $newMember->identifier;
+		return $newMember->getIdentifier();
     }
 }

@@ -43,6 +43,7 @@ class Member extends AggregateRoot {
             lastName: $lastName,
             contact: $contact,
             gender:$gender,
+            memberSinceAt: new \DateTime()
         );
     }
 
@@ -51,8 +52,12 @@ class Member extends AggregateRoot {
             'identifier' => $this->identifier,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
-            'gender' => $this->gender->getGender(),
-            'contact' => $this->contact
+            'gender' => [
+                'value' => $this->gender->getGenderValue(),
+                'text' =>$this->gender->getGender()
+            ],
+            'contact' => $this->contact,
+            'memberSinceAt' => $this->memberSinceAt
         ];
     }
 }

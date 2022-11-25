@@ -27,7 +27,11 @@ class Contact implements \CollectionInterface {
 	 *
 	 * @return bool
 	 */
-	function isEmpty(): bool {
+	public function isEmpty(): bool {
         return count($this->contact) === 0;
 	}
+
+    public function toArray() : array {
+        return $this->contact;
+    }
 }
