@@ -1,15 +1,15 @@
 <?php
 
-namespace Application\Business\Member\Command\Hanlder;
+namespace Application\Business\Member\Command\Handler;
 
 use Application\Business\Member\Command\CreateMemberCommand;
+use Application\Utils\Handler\CommandHandlerInterface;
 use Domain\Business\Member\Member;
 use Domain\Business\Member\Repository\CreateMemberRepositoryInterface;
 use Domain\Utils\Event\EventManagerInterface;
 use Domain\Utils\Identifier\IdentifierInterface;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-final class CreateMemberHandler {
+final class CreateMemberHandler implements CommandHandlerInterface {
 
     public function __construct(
         private CreateMemberRepositoryInterface $createMemberRepositoryInterface,

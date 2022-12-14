@@ -2,15 +2,8 @@
 
 namespace Domain\Business\Member\Attributes;
 
-enum GenderType {
-    case MAN;
-    case WOMEN;
+use Domain\Business\Member\Attributes\Contact\GenderType;
 
-    public static function build(int $gender) : GenderType {
-        if ($gender === 0) return GenderType::WOMEN;
-        return GenderType::MAN;
-    }
-}
 class Gender {
 
     private function __construct(
