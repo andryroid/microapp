@@ -2,7 +2,6 @@
 
 namespace Domain\Business\Member\Attributes;
 
-use Domain\Business\Member\Attributes\Contact\GenderType;
 
 class Gender {
 

@@ -10,6 +10,10 @@ services:
     Application\Utils\Handler\CommandHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: command.bus }
+    Application\Utils\Handler\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
 
   Domain\Business\Member\Repository\CreateMemberRepositoryInterface: '@Infrastructure\Repository\CreateMemberRepository'
   Domain\Utils\Identifier\IdentifierInterface: '@Application\Utils\Identifier\IdentifierV1'
+  Application\Business\Member\Event\MemberWasCreated\Notification\Contract\NotificationInterface: '@Infrastructure\Service\Notification\Member\EmailNotification'

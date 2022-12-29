@@ -1,6 +1,12 @@
 version: "3.3"
 
 services:
+  maildev:
+    image: maildev/maildev
+    restart: always
+    ports:
+      - 1080:1080
+      - 1025:1025
   rabbitmq:
     image: rabbitmq:management
     container_name: "rabbitmq"
@@ -18,6 +24,8 @@ services:
       - ../user-management:/var/www
     ports:
       - 8101:80
+    environment:
+      - MAILER_DSN=smtp://localhost:1025
 
   kongGateway:
     image: kong/kong-gateway
