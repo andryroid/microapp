@@ -18,12 +18,13 @@ final class EmailNotification implements NotificationInterface
 	 * @return mixed
 	 */
 	public function sendNotification(MemberWasCreated $userCreated): void {
-        $email = (new Email())
+        /*$email = (new Email())
             ->from('hello@example.com')
             ->to('you@example.com')
             ->subject('Time for Symfony Mailer!')
             ->text('Sending emails is fun again!')
             ->html('<p>See Twig integration for better HTML integration!</p>');
-        $this->mailer->send($email);
+        $this->mailer->send($email);*/
+        dump('sending email notification here');
     }
 }

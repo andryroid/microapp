@@ -14,6 +14,17 @@ services:
       - 5672:5672
       - 15672:15672
 
+  matching:
+    build:
+      context: ../
+      dockerfile: ./matching/Dockerfile
+    image: lalaina/matching
+    restart: always
+    volumes:
+      - ../matching:/app
+    ports:
+      - 8102:3000
+
   userManagement:
     build:
       context: ../
