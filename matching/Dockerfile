@@ -1,5 +1,5 @@
-FROM node:12.20-alpine as build
+FROM node:gallium-slim as build
+RUN npm install -g typescript
 WORKDIR /app
 COPY ./matching/ .
 EXPOSE 3000
-RUN npm start

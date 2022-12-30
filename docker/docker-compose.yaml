@@ -7,12 +7,12 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: "rabbitmq"
-    ports:
-      - 5672:5672
-      - 15672:15672
+  # rabbitmq:
+  #   image: rabbitmq:management
+  #   container_name: "rabbitmq"
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
 
   matching:
     build:
@@ -24,6 +24,7 @@ services:
       - ../matching:/app
     ports:
       - 8102:3000
+    command: bash -c "npm run dev --show-all"
 
   userManagement:
     build:
@@ -38,22 +39,22 @@ services:
     environment:
       - MAILER_DSN=smtp://maildev:1025
 
-  kongGateway:
-    image: kong/kong-gateway
-    volumes:
-      - ../kong/:/kong/declarative
-    environment:
-      - KONG_DATABASE=off
-      - KONG_DECLARATIVE_CONFIG=../kong/declarative/kong.yml
-      - KONG_PROXY_ACCESS_LOG=/dev/stdout
-      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
-      - KONG_PROXY_ERROR_LOG=/dev/stderr
-      - KONG_ADMIN_ERROR_LOG=/dev/stderr
-      - KONG_ADMIN_LISTEN=0.0.0.0:8001
-      - KONG_ADMIN_GUI_URL=http://localhost:8002
-    ports:
-      - 8000:8000
-      - 8001:8001
-      - 8002:8002
-      - 8443:8443
-      - 8444:8444
+  # kongGateway:
+  #   image: kong/kong-gateway
+  #   volumes:
+  #     - ../kong/:/kong/declarative
+  #   environment:
+  #     - KONG_DATABASE=off
+  #     - KONG_DECLARATIVE_CONFIG=../kong/declarative/kong.yml
+  #     - KONG_PROXY_ACCESS_LOG=/dev/stdout
+  #     - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+  #     - KONG_PROXY_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_LISTEN=0.0.0.0:8001
+  #     - KONG_ADMIN_GUI_URL=http://localhost:8002
+  #   ports:
+  #     - 8000:8000
+  #     - 8001:8001
+  #     - 8002:8002
+  #     - 8443:8443
+  #     - 8444:8444
