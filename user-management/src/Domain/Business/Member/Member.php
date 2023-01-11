@@ -48,6 +48,32 @@ class Member extends AggregateRoot {
         );
     }
 
+    public static function init(
+        string $identifier,
+        string $firstName,
+        string $lastName,
+        Contact $contact,
+        Gender $gender,
+        \DateTime $memberSinceAt
+    ) : Member {
+        //check for error
+        if ($firstName === "")
+            throw new IncorrectUsernameException('Incorrect first name');
+        if ($lastName === "")
+            throw new IncorrectUsernameException('Incorrect last name');
+        if ($contact->isEmpty())
+            throw new EmptyContactException('Contact is empty');
+
+        return new Member(
+            identifier: $identifier,
+            firstName: $firstName,
+            lastName: $lastName,
+            contact: $contact,
+            gender:$gender,
+            memberSinceAt: $memberSinceAt
+        );
+    }
+
     public function getSummary() : array {
         return [
             'identifier' => $this->identifier,
@@ -60,5 +86,17 @@ class Member extends AggregateRoot {
             'contact' => $this->contact,
             'memberSinceAt' => $this->memberSinceAt
         ];
+    }
+
+    public function updateFirstName(string $newFirstName): self
+    {
+        $this->firstName = $newFirstName;
+        return $this;
+    }
+
+     public function updateLastName(string $newLastName): self
+    {
+        $this->lastName = $newLastName;
+        return $this;
     }
 }

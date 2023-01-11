@@ -1,9 +1,10 @@
 <?php
 
-namespace Infrastructure\Repository;
+namespace Infrastructure\Repository\Member;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Domain\Business\Member\Member as MemberMember;
 use Domain\Business\Member\Repository\CreateMemberRepositoryInterface;
 use Infrastructure\Entity\Member\Member;
 use Infrastructure\Entity\User;
@@ -28,7 +29,7 @@ class CreateMemberRepository extends ServiceEntityRepository implements CreateMe
 	 *
 	 * @return string
 	 */
-	function save(\Domain\Business\Member\Member $member): string {
+	public function save(\Domain\Business\Member\Member $member): string {
 		$information = $member->getSummary();
 		$newMember = (new Member())
 			->setIdentifier($information['identifier'])
@@ -40,4 +41,14 @@ class CreateMemberRepository extends ServiceEntityRepository implements CreateMe
 		$this->_em->persist($newMember);
 		return $newMember->getIdentifier();
     }
+
+	public function update(MemberMember $member): array
+	{
+		$memberDetails = $member->getSummary();
+		$memberDataBase = $this->_em->getRepository(Member::class)->findOneBy(['identifier' => $memberDetails['identifier']]);
+		$memberDataBase->setFirstName($memberDetails['firstName']);
+		$memberDataBase->setLastName($memberDetails['lastName']);
+		$this->_em->persist($memberDataBase);
+		return $memberDetails;
+	}
 }

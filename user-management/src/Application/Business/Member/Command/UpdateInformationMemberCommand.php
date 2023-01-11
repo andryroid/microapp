@@ -2,6 +2,7 @@
 
 namespace Application\Business\Member\Command;
 
+use Domain\Business\Member\Member;
 use Domain\Utils\Attributes\Command;
 use Domain\Utils\Attributes\MessageInterface;
 
@@ -9,16 +10,16 @@ use Domain\Utils\Attributes\MessageInterface;
 class UpdateInformationMemberCommand implements MessageInterface {
 
     private function __construct(
-        public  string $memberIdentification,
+        public Member $member,
         public array $data 
     )
     {
         
     }
 
-    public static function build(string $memberIdentification,array $data) : UpdateInformationMemberCommand {
+    public static function build(Member $member,array $data) : UpdateInformationMemberCommand {
         return new UpdateInformationMemberCommand(
-            memberIdentification: $memberIdentification,
+            member: $member,
             data: $data
         );
     }
