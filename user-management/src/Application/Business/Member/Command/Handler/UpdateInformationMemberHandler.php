@@ -4,6 +4,7 @@ namespace Application\Business\Member\Command\Handler;
 
 use Application\Business\Member\Command\UpdateInformationMemberCommand;
 use Application\Utils\Handler\CommandHandlerInterface;
+use Domain\Business\Member\Events\MemberWasUpdated;
 use Domain\Business\Member\Repository\CreateMemberRepositoryInterface;
 use Domain\Utils\Event\EventManagerInterface;
 
@@ -25,6 +26,7 @@ final class UpdateInformationMemberHandler implements CommandHandlerInterface {
         if (isset($data['lastName']))
             $member->updateLastName($data['lastName']);
         //save domain event
+        $member->saveEvent(new MemberWasUpdated($member->getSummary()['identifier']));
         $this->eventManagerInterface->saveEvent($member);
         return $this->createMemberRepositoryInterface->update($member);
     }

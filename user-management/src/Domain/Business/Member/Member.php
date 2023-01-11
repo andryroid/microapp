@@ -47,7 +47,6 @@ class Member extends AggregateRoot {
             gender: $gender,
             memberSinceAt: new \DateTime()
         );
-        $member->addEvent(new MemberWasCreated($member->getSummary()['identifier']));
         return $member;
     }
 

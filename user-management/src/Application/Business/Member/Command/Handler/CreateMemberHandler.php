@@ -4,6 +4,7 @@ namespace Application\Business\Member\Command\Handler;
 
 use Application\Business\Member\Command\CreateMemberCommand;
 use Application\Utils\Handler\CommandHandlerInterface;
+use Domain\Business\Member\Events\MemberWasCreated;
 use Domain\Business\Member\Member;
 use Domain\Business\Member\Repository\CreateMemberRepositoryInterface;
 use Domain\Utils\Event\EventManagerInterface;
@@ -27,6 +28,7 @@ final class CreateMemberHandler implements CommandHandlerInterface {
             contact: $createMemberCommand->contact,
             gender: $createMemberCommand->gender
         );
+        $newMember->saveEvent(new MemberWasCreated($newMember->getSummary()['identifier']));
         $this->eventManagerInterface->saveEvent($newMember);
         return $this->createMemberRepositoryInterface->save($newMember);
     }
