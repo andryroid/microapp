@@ -105,6 +105,6 @@ class Member extends AggregateRoot {
 
     public function saveEvent(MessageInterface $messageInterface)
     {
-        $this->saveEvent($messageInterface);
+        $this->addEvent($messageInterface);
     }
 }

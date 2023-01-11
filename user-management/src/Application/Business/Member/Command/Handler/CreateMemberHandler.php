@@ -28,7 +28,8 @@ final class CreateMemberHandler implements CommandHandlerInterface {
             contact: $createMemberCommand->contact,
             gender: $createMemberCommand->gender
         );
-        $newMember->saveEvent(new MemberWasCreated($newMember->getSummary()['identifier']));
+        $memberWasCreateEvent = new MemberWasCreated($newMember->getSummary()['identifier']);
+        $newMember->saveEvent($memberWasCreateEvent);
         $this->eventManagerInterface->saveEvent($newMember);
         return $this->createMemberRepositoryInterface->save($newMember);
     }

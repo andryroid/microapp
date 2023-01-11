@@ -31,7 +31,6 @@ class PublishEventMiddleware implements MiddlewareInterface
         if (!$this->eventManager->hasEvent()) {
             return $result;
         }
-
         $this->eventPersist->store();
 
         $this->entityManager->beginTransaction();
