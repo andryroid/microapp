@@ -19,5 +19,6 @@ services:
 
   Domain\Business\Member\Repository\CreateMemberRepositoryInterface: '@Infrastructure\Repository\Member\CreateMemberRepository'
   Domain\Business\Member\Repository\FindMemberRepositoryInterface: '@Infrastructure\Repository\Member\findMemberRepository'
+  Domain\Business\Member\Repository\DeleteMemberRepositoryInterface: '@Infrastructure\Repository\Member\DeleteMemberRepository'
   Domain\Utils\Identifier\IdentifierInterface: '@Application\Utils\Identifier\IdentifierV1'
   Application\Business\Member\Event\MemberWasCreated\Notification\Contract\NotificationInterface: '@Infrastructure\Service\Notification\Member\EmailNotification'

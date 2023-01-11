@@ -20,7 +20,18 @@ final class DeleteMemberHandler implements CommandHandlerInterface {
     }
     public function __invoke(DeleteMemberCommand $deleteMemberCommand) : void
     {
-        $deleted = $this->deleteMemberRepositoryInterface->deleteMember($$deleteMemberCommand->identifier);
-        if ($deleted) $this->eventManagerInterface->saveEvent($deleteMemberCommand->member);
+        $member = $deleteMemberCommand->member;
+        $deleted = $this->deleteMemberRepositoryInterface->deleteMember($member->getSummary()['identifier']);
+        if ($deleted) {
+            $summary = $member->getSummary();
+            $member->saveEvent(
+                new MemberWasDeleted(
+                    memberId: $summary['identifier'],
+                    fullName: $summary['firstName'] . " " . $summary['lastName'],
+                    contact: $summary['contact']
+                )
+            );
+            $this->eventManagerInterface->saveEvent($member);
+        }
     }
 }

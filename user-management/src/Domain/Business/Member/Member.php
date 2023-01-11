@@ -5,9 +5,11 @@ namespace Domain\Business\Member;
 use Domain\Business\Member\Attributes\Contact\Contact;
 use Domain\Business\Member\Attributes\Gender;
 use Domain\Business\Member\Events\MemberWasCreated;
+use Domain\Business\Member\Events\MemberWasUpdated;
 use Domain\Business\Member\Exception\EmptyContactException;
 use Domain\Business\Member\Exception\IncorrectUsernameException;
 use Domain\Utils\AggregateRoot\AggregateRoot;
+use Domain\Utils\Attributes\MessageInterface;
 use Domain\Utils\Identifier\IdentifierInterface;
 
 class Member extends AggregateRoot {
@@ -20,7 +22,7 @@ class Member extends AggregateRoot {
         private Gender $gender
     )
     {
-        $this->addEvent(new MemberWasCreated($this->identifier));
+        
     }
 
     public static function create(
@@ -37,15 +39,16 @@ class Member extends AggregateRoot {
             throw new IncorrectUsernameException('Incorrect last name');
         if ($contact->isEmpty())
             throw new EmptyContactException('Contact is empty');
-
-        return new Member(
+        $member = new Member(
             identifier: $identifier->generateChar(),
             firstName: $firstName,
             lastName: $lastName,
             contact: $contact,
-            gender:$gender,
+            gender: $gender,
             memberSinceAt: new \DateTime()
         );
+        $member->addEvent(new MemberWasCreated($member->getSummary()['identifier']));
+        return $member;
     }
 
     public static function init(
@@ -63,8 +66,7 @@ class Member extends AggregateRoot {
             throw new IncorrectUsernameException('Incorrect last name');
         if ($contact->isEmpty())
             throw new EmptyContactException('Contact is empty');
-
-        return new Member(
+        $member = new Member(
             identifier: $identifier,
             firstName: $firstName,
             lastName: $lastName,
@@ -72,6 +74,8 @@ class Member extends AggregateRoot {
             gender:$gender,
             memberSinceAt: $memberSinceAt
         );
+        $member->addEvent(new MemberWasUpdated($member->getSummary()['identifier']));
+        return $member;
     }
 
     public function getSummary() : array {
@@ -98,5 +102,10 @@ class Member extends AggregateRoot {
     {
         $this->lastName = $newLastName;
         return $this;
+    }
+
+    public function saveEvent(MessageInterface $messageInterface)
+    {
+        $this->saveEvent($messageInterface);
     }
 }
