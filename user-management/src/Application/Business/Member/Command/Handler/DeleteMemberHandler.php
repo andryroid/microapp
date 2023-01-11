@@ -28,7 +28,7 @@ final class DeleteMemberHandler implements CommandHandlerInterface {
                 new MemberWasDeleted(
                     memberId: $summary['identifier'],
                     fullName: $summary['firstName'] . " " . $summary['lastName'],
-                    contact: $summary['contact']
+                    contact: $summary['contact']->toArray()
                 )
             );
             $this->eventManagerInterface->saveEvent($member);
